@@ -1,5 +1,9 @@
 # Books
 
+* Languages:
+    * Spring in Action, 5th Edition
+    * The Go Programming Language
+    * The C Programming Language
 * Clean Code - Robert C. Martin
 * Head First Design Patterns - Eric Freeman & Elisabeth Freeman
 * TDD By Example - Kent Beck
