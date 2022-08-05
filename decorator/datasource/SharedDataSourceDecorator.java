@@ -13,8 +13,9 @@ public class SharedDataSourceDecorator extends DataSourceDecorator {
 
     @Override
     public int write(byte[] newValues) {
+        int prevResult = super.write(newValues);
         share(newValues);
-        return super.write(newValues);
+        return prevResult;
     }
 
 }
