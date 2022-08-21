@@ -1,5 +1,9 @@
 # Design Patterns
 
+<b>See books in ```/books``` directory</b>
+
+<p>Patterns:</p>
+
 * [Builder](https://refactoring.guru/design-patterns/builder)
 * [Chain of Responsibility](https://www.geeksforgeeks.org/chain-responsibility-design-pattern/)
 * [Decorator](https://refactoring.guru/design-patterns/decorator)

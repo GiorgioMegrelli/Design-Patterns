@@ -7,6 +7,7 @@
     * The C Programming Language
 * Clean Code - Robert C. Martin
 * Head First Design Patterns - Eric Freeman & Elisabeth Freeman
+* Introduction to Algorithms
 * TDD By Example - Kent Beck
 * The Mythical Man-Month - Frederick P. Brooks, Jr.
 * The Pragmatic Programmer - Dave Thomas, Andy Hunt
