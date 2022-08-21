@@ -1,6 +1,7 @@
 # Books
 
 * Languages:
+    * Programming Rust
     * Spring in Action, 5th Edition
     * The Go Programming Language
     * The C Programming Language
