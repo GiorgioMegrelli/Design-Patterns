@@ -4,6 +4,7 @@
 
 <p>Patterns:</p>
 
+* [Adapter](https://refactoring.guru/design-patterns/adapter)
 * [Builder](https://refactoring.guru/design-patterns/builder)
 * [Chain of Responsibility](https://www.geeksforgeeks.org/chain-responsibility-design-pattern/)
 * [Decorator](https://refactoring.guru/design-patterns/decorator)
