@@ -10,6 +10,7 @@
 * [Decorator](https://refactoring.guru/design-patterns/decorator)
 * [Factory Method](https://refactoring.guru/design-patterns/factory-method)
 * [Observer](https://refactoring.guru/design-patterns/observer)
+* [Prototype](https://refactoring.guru/design-patterns/prototype)
 * [Singleton](https://refactoring.guru/design-patterns/singleton)
 * [Strategy](https://refactoring.guru/design-patterns/strategy)
 
