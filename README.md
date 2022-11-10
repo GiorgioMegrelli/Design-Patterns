@@ -15,4 +15,6 @@
 * [Singleton](https://refactoring.guru/design-patterns/singleton)
 * [Strategy](https://refactoring.guru/design-patterns/strategy)
 
-<i><b>Note:</b> Some of examples are taken from external resources.</i>
+<i><b>Note #1:</b> Some of examples are taken from external resources.</i>
+<br>
+<i><b>Note #2:</b> The repository is open to modifications.</i>
