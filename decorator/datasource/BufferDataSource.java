@@ -1,7 +1,5 @@
 package decorator.datasource;
 
-import com.sun.istack.internal.NotNull;
-
 import java.util.Arrays;
 
 public class BufferDataSource implements DataSource {
@@ -20,7 +18,7 @@ public class BufferDataSource implements DataSource {
         size = 0;
     }
 
-    public BufferDataSource(@NotNull byte[] value) {
+    public BufferDataSource(byte[] value) {
         size = value.length;
         values = Arrays.copyOf(value, size);
     }
@@ -41,11 +39,11 @@ public class BufferDataSource implements DataSource {
     }
 
     @Override
-    public int write(@NotNull byte[] newValues) {
+    public int write(byte[] newValues) {
         return write(newValues, 0, newValues.length);
     }
 
-    private int write(@NotNull byte[] newValues, int writeOffset, int writeSize) {
+    private int write(byte[] newValues, int writeOffset, int writeSize) {
         final int trueSize = Math.max(Math.min(newValues.length - writeOffset, writeSize), 0);
         if (trueSize > 0) {
             if (size + trueSize > values.length) {
