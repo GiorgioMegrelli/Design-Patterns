@@ -1,6 +1,8 @@
 # Design Patterns
 
 <b>See books in ```/books``` directory</b>
+</br>
+<b>See principles of programming in ```/principles``` directory</b>
 
 ### Patterns:
 
