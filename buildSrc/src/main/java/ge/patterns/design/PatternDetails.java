@@ -1,3 +1,5 @@
+package ge.patterns.design;
+
 import org.gradle.api.Task;
 import org.gradle.api.tasks.JavaExec;
 import org.gradle.api.tasks.bundling.Jar;

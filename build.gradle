@@ -1,3 +1,5 @@
+import ge.patterns.design.PatternDetails
+
 buildscript {
     tasks.withType(JavaCompile).tap {
         configureEach {
@@ -12,6 +14,8 @@ plugins {
 
 ext {
     patternsStorage = [:]
+
+    taskGroupName = 'Patterns'
 }
 
 compileJava {
@@ -41,15 +45,20 @@ def pattern(String dirName, String taskPrefix = null) {
     Objects.requireNonNull(dirName)
     taskPrefix = Objects.requireNonNullElse(taskPrefix, dirName)
 
+    final classesOutputDir = file("$buildDir/classes/$dirName")
+    final patternJarFile = file("$buildDir/libs/${dirName}.jar")
+
     final patternBuildTask = tasks.register(taskPrefix + 'Build', JavaCompile) {
+        group = taskGroupName
         source = fileTree(dirName).files.findAll {
             it.name.toLowerCase().endsWith('.java')
         }
-        destinationDir = file("$buildDir/classes/$dirName")
+        destinationDir = classesOutputDir
         classpath = sourceSets.main.compileClasspath
     }
     final patternJarTask = tasks.register(taskPrefix + 'Jar', Jar) {
         dependsOn(patternBuildTask)
+        group = taskGroupName
         archiveFileName = "${dirName}.jar"
         destinationDirectory = file("$buildDir/libs")
         from(patternBuildTask)
@@ -59,16 +68,15 @@ def pattern(String dirName, String taskPrefix = null) {
     }
     final patternRunTask = tasks.register(taskPrefix + 'Run', JavaExec) {
         dependsOn(patternJarTask)
-        classpath = fileTree("$buildDir/libs/${dirName}.jar")
+        group = taskGroupName
+        classpath = fileTree(patternJarFile)
     }
     final patternCleanTask = tasks.register(taskPrefix + 'Clean') {
-        def jarFile = file("$buildDir/libs/${dirName}.jar")
-        def classesDir = file("$buildDir/classes/$dirName")
-        if(jarFile.exists() && jarFile.isFile()) {
-            jarFile.delete()
+        if(patternJarFile.exists() && patternJarFile.isFile()) {
+            patternJarFile.delete()
         }
-        if(classesDir.exists() && classesDir.isDirectory()) {
-            classesDir.deleteDir()
+        if(classesOutputDir.exists() && classesOutputDir.isDirectory()) {
+            classesOutputDir.deleteDir()
         }
     }
 

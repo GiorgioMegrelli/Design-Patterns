@@ -55,6 +55,27 @@ adapter
 ./gradlew patternsCleanAll
 ```
 
+### Register pattern within build.gradle
+
+To register a pattern use following function in `build.gradle`
+
+```groovy
+def pattern(String dirName, String taskPrefix = null) {}
+```
+
+- dirName - Directory which contains source code of pattern
+- taskPrefix - `[Optional]` Prefix of generated tasks of each pattern. Default value is equal to `dirName`
+
+It registers four tasks associated with the pattern. They have the following format (see short descriptions):
+- `<taskPrefix>Build` - Compiles sources files into `build/classes/<dirName>/<dirName>/`
+- `<taskPrefix>Jar` - Builds compiled class files into a single jar `build/libs/<dirName>.jar`
+- `<taskPrefix>Run` - Runs the generated jar file
+- `<taskPrefix>Clean` - Cleans generated files
+
+<b>Each directory of pattern MUST have `Example` class because it is considered as initial point</b>
+
+### See some additional functionality in `buildSrc`
+
 ## TODOs, Notes
 
 <i><b>Note #1:</b> Some of examples are taken from external resources.</i>
