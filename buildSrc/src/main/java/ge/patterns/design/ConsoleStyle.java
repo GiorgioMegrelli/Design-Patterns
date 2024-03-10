@@ -1,3 +1,5 @@
+package ge.patterns.design;
+
 import java.util.function.Supplier;
 
 import static java.util.Objects.requireNonNull;

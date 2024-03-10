@@ -1,3 +1,5 @@
+package ge.patterns.design;
+
 import static java.util.Objects.requireNonNull;
 
 public class StringUtils {
