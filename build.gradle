@@ -1,0 +1,94 @@
+buildscript {
+    tasks.withType(JavaCompile).tap {
+        configureEach {
+            options.encoding = 'UTF-8'
+        }
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+ext {
+    patternsStorage = [:]
+}
+
+compileJava {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+List<PatternDetails> getPatternDetails() {
+    return project.ext.patternsStorage.values().toSorted()
+}
+
+tasks.register('patternsHelp') {
+    getPatternDetails().forEach { details ->
+        println(details.beautifyString())
+    }
+}
+
+tasks.register('patternsRunAll') {
+    dependsOn(getPatternDetails().collect { it.runTask })
+}
+
+tasks.register('patternsCleanAll') {
+    dependsOn(getPatternDetails().collect { it.cleanTask })
+}
+
+def pattern(String dirName, String taskPrefix = null) {
+    Objects.requireNonNull(dirName)
+    taskPrefix = Objects.requireNonNullElse(taskPrefix, dirName)
+
+    final patternBuildTask = tasks.register(taskPrefix + 'Build', JavaCompile) {
+        source = fileTree(dirName).files.findAll {
+            it.name.toLowerCase().endsWith('.java')
+        }
+        destinationDir = file("$buildDir/classes/$dirName")
+        classpath = sourceSets.main.compileClasspath
+    }
+    final patternJarTask = tasks.register(taskPrefix + 'Jar', Jar) {
+        dependsOn(patternBuildTask)
+        archiveFileName = "${dirName}.jar"
+        destinationDirectory = file("$buildDir/libs")
+        from(patternBuildTask)
+        manifest {
+            attributes 'Main-Class': "${dirName}.Example"
+        }
+    }
+    final patternRunTask = tasks.register(taskPrefix + 'Run', JavaExec) {
+        dependsOn(patternJarTask)
+        classpath = fileTree("$buildDir/libs/${dirName}.jar")
+    }
+    final patternCleanTask = tasks.register(taskPrefix + 'Clean') {
+        def jarFile = file("$buildDir/libs/${dirName}.jar")
+        def classesDir = file("$buildDir/classes/$dirName")
+        if(jarFile.exists() && jarFile.isFile()) {
+            jarFile.delete()
+        }
+        if(classesDir.exists() && classesDir.isDirectory()) {
+            classesDir.deleteDir()
+        }
+    }
+
+    patternsStorage[dirName] = new PatternDetails(
+            dirName,
+            patternBuildTask.get(),
+            patternJarTask.get(),
+            patternRunTask.get(),
+            patternCleanTask.get()
+    )
+}
+
+/* Register patterns here */
+pattern('adapter')
+pattern('builder')
+pattern('chainofresponsibility')
+pattern('composite')
+pattern('decorator')
+pattern('factory')
+pattern('observer')
+pattern('prototype')
+pattern('singleton')
+pattern('strategy')
